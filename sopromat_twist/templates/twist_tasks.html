@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.column { 
+		width: 500px; 
+		background:#ccc;	
+		}	  
+	  .img {
+                width: 500px;
+                background: #fff;
+                padding-left: 40px;
+                }
+	.links{
+                width:100px;
+                background:#ccc;
+                float:right;
+                position:relative;
+                }
+
+	</style> 
+	<title>Просмотр задач</title>
+</head>
+
+<body>
+<div class="links">
+	<a href="{% url 'sopromat_twist:tester' %}">Пойти решать</a>		<br/>
+	<br/>
+	<a href="{% url 'sopromat_twist:stats_student' %}">Статистика для студента</a><br/>
+	<br/>
+	<a href="{% url 'sopromat_twist:stats_teacher' %}">Статистика для учителя</a><br/>
+	<br/>
+	<a href="{% url 'sopromat:index' %}">На главную</a>
+	<br/>
+	
+	
+</div>
+Выберите задачу
+
+<select style="width: 350px;" name="tasks" onchange = "location = this.options[this.selectedIndex].value;">
+	<option selected="choose">choose</option>
+		{% for i in twist_tasks %}
+        <option value="?task={{i.id}}" >
+        	{{i.id}}
+        </option>   
+		{% endfor %}
+</select>
+{% if twist_taskselected %}
+<table cellspacing="0" cellpadding="0">
+	<tr>
+        	<td>
+                	<div class="column">
+						Задача #{{twist_task.id}}
+						{% autoescape off %}{{ twist_task.text }}{% endautoescape %}
+						
+				<br/><br/>Ответы: M={{twist_task.answerM}}, T={{twist_task.answerT}}
+                        </div>
+                </td>
+                <td>
+                <div class="img">
+						{% load staticfiles %}
+
+						<img src="{% static "twist_" %}{{twist_task.id}}.png" />
+		            </div>
+                </td>
+                </tr>
+                </table>
+
+{% endif %}
+<br/>
+</body>
+</html>

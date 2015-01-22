@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.tasktext { 
+		width: 300px; 
+		background:#ccc;	
+		}	  
+	.loginform {
+		width: 400px;
+		text-align: left;
+		background:#ccc;
+		}
+	</style> 
+	<title>Beam Tester</title>
+</head>
+
+<body>
+<div class="loginform">
+	Расчет статически неопределимых балок<br/><br/>
+	You are: {{user}} 
+	<br/><br/>
+	<a href="{% url 'sopromat_beam:tester' %}">Пойти решать</a><br/>
+	<br/>
+	<a href="{% url 'sopromat_beam:stats_student' %}">Посмотреть статистику</a><br/>
+	<br/>
+	{% if True %}
+	<a href="{% url 'sopromat_beam:tasks' %}">Посмотреть задачи</a><br/>
+	{% endif %}
+	<br/>
+	<a href="{% url 'sopromat:index' %}">На главную</a>
+	<br/>
+</div>
+</body>
+</html>

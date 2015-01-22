@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.tasktext {
+		width: 500px;
+		background:#ccc;
+		}
+	.loginform {
+		width: 400px;
+		text-align: left;
+		background:#ccc;
+		}
+	.img {
+		width: 500px;
+		background: #fff;
+		padding-left: 40px;
+		}
+	.links{
+		width:100px;
+		background:#ccc;
+		float:right;
+		position:relative;
+		}
+	</style>
+	<title>Инерция</title>
+</head>
+
+<body>
+<div class="links">
+	<a href="{% url 'sopromat:index' %}">Вернуться в начало</a>
+	<br/>
+</div>
+
+<div class="loginform">
+	Вы: {{user}}
+	<br/>
+
+</div>
+<div align="left">
+	<form action="" method="get" name="TaskForm">
+
+		<button type="submit" name="task" value="new">Новая задача</button>
+		<br/><br/><br/>
+		{% if inertia_taskgiven %}
+			<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<div class="tasktext">
+						Задача #{{inertia_taskid}}
+						{% autoescape off %}{{ inertia_tasktext }}{% endautoescape %}
+
+					</div>
+				</td>
+				<td>
+					<div class="img">
+						{% load staticfiles %}
+
+						<img src="{% static inertia_imagelink %}" />
+		            </div>
+				</td>
+			</tr>
+			</table>
+			<br/>
+		{% endif %}
+	</form>
+	{% if inertia_taskgiven %}
+		Введите ответы:
+		<form action="" method="get" name="task">
+
+			Ответ для M: <!--${inertia_Q}--><br/>
+			<input type="text" name="X" value="{{sub_m}}"/>
+			{% if inertia_answerX == "correct" %}
+					{{inertia_answerX}}
+				{% else %}
+					{{inertia_answerX}}
+				{% endif %}
+			<br/>
+			Ответ для T: <!--${inertia_Q}--><br/>
+			<input type="text" name="Y" value="{{sub_t}}"/>
+			{% if inertia_answerY == "correct" %}
+					{{inertia_answerY}}
+				{% else %}
+					{{inertia_answerY}}
+				{% endif %}
+			<br/>
+			<input type="submit" name="answer" value="Submit"/>
+		</form>
+	{% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.tasktext { 
+		width: 500px; 
+		background:#ccc;	
+		}	  
+	.loginform {
+		width: 400px;
+		text-align: left;
+		background:#ccc;
+		}
+	.img {
+		width: 500px;
+		background: #fff;
+		padding-left: 40px;
+		}
+	.links{
+		width:100px;
+		background:#ccc;
+		float:right;
+		position:relative;
+		}
+	</style> 
+	<title>Кручение</title>
+</head>
+
+<body>
+<div class="links">	
+	<a href="{% url 'sopromat_twist:stats_student' %}">Статистика</a> <br/><br/>
+	{% if True %}
+   		<a href="{% url 'sopromat_twist:tasks' %}">Задачи</a><br/>
+	{% endif %}
+	<br/>
+	<a href="{% url 'sopromat:index' %}">Вернуться в начало</a>
+	<br/>
+</div>
+
+<div class="loginform">
+	Вы: {{user}}  
+	<br/>
+	Назначенные задачи:
+        <select style="width: 200px;" name="tasks" onchange = "location = this.options[this.selectedIndex].value;">
+	      	<option selected="Выберите из списка">Выберите из списка</option>
+			{% for i in twist_usertasks %}
+				<option value="?task={{i}}" >{{i}}</option>   
+			{% endfor %}
+		</select>
+	<br/>
+</div>
+<div align="left">	
+	<form action="" method="get" name="TaskForm">
+	
+		<button type="submit" name="task" value="new">Новая задача</button>
+		<br/><br/><br/>
+		{% if twist_taskgiven %}		
+			<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<div class="tasktext">
+						Задача #{{twist_taskid}}
+						{% autoescape off %}{{ twist_tasktext }}{% endautoescape %}
+						
+					</div>
+				</td>
+				<td>
+					<div class="img">
+						{% load staticfiles %}
+
+						<img src="{% static "twist_" %}{{twist_taskid}}.png" />
+		            </div>
+				</td>
+			</tr>
+			</table>
+			<br/>
+		{% endif %}
+	</form>
+	{% if twist_taskgiven %}	
+		Введите ответы:
+		<form action="" method="get" name="task">
+		
+			Ответ для M: <!--${twist_Q}--><br/>
+			<input type="text" name="M" value="{{sub_m}}"/>			
+			{% if twist_answerM == "correct" %}
+					{{twist_answerM}}
+				{% else %}
+					{{twist_answerM}}
+				{% endif %}	
+			<br/>
+			Ответ для T: <!--${twist_Q}--><br/>
+			<input type="text" name="T" value="{{sub_t}}"/>			
+			{% if twist_answerT == "correct" %}
+					{{twist_answerT}}
+				{% else %}
+					{{twist_answerT}}
+				{% endif %}	
+			<br/>		
+			<input type="submit" name="answer" value="Submit"/>
+		</form>
+	{% endif %}
+</div>
+</body>
+</html>

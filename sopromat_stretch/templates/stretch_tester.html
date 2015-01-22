@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.tasktext { 
+		width: 500px; 
+		background:#ccc;	
+		}	  
+	.loginform {
+		width: 400px;
+		text-align: left;
+		background:#ccc;
+		}
+	.img {
+		width: 500px;
+		background: #fff;
+		padding-left: 40px;
+		}
+	.links{
+		width:100px;
+		background:#ccc;
+		float:right;
+		position:relative;
+		}
+	</style> 
+	<title>Растяжение</title>
+</head>
+
+<body>
+<div class="links">	
+	<a href="{% url 'sopromat_stretch:stats_student' %}">Статистика</a> <br/><br/>
+	{% if True %}
+   		<a href="{% url 'sopromat_stretch:tasks' %}">Задачи</a><br/>
+	{% endif %}
+	<br/>
+	<a href="{% url 'sopromat:index' %}">Вернуться в начало</a>
+	<br/>
+</div>
+
+<div class="loginform">
+	Вы: {{user}}  
+	<br/>
+	Назначенные задачи:
+        <select style="width: 200px;" name="tasks" onchange = "location = this.options[this.selectedIndex].value;">
+	      	<option selected="Выберите из списка">Выберите из списка</option>
+			{% for i in stretch_usertasks %}
+				<option value="?task={{i}}" >{{i}}</option>   
+			{% endfor %}
+		</select>
+	<br/>
+</div>
+<div align="left">	
+	<form action="" method="get" name="TaskForm">
+	
+		<button type="submit" name="task" value="new">Новая задача</button>
+		<br/><br/><br/>
+		{% if stretch_taskgiven %}		
+			<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<div class="tasktext">
+						Задача #{{stretch_taskid}}
+						{% autoescape off %}{{ stretch_tasktext }}{% endautoescape %}
+						
+					</div>
+				</td>
+				<td>
+					<div class="img">
+						{% load staticfiles %}
+
+						<img src="{% static "stretch_" %}{{stretch_taskid}}.png" />
+		            </div>
+				</td>
+			</tr>
+			</table>
+			<br/>
+		{% endif %}
+	</form>
+	{% if stretch_taskgiven %}	
+		Введите ответы:
+		<form action="" method="get" name="task">
+		
+			Ответ для N: <!--${stretch_Q}--><br/>
+			<input type="text" name="N" value="{{sub_n}}"/>			
+			{% if stretch_answerN == "correct" %}
+					{{stretch_answerN}}
+				{% else %}
+					{{stretch_answerN}}
+				{% endif %}	
+			<br/>
+			Ответ для L: <!--${stretch_Q}--><br/>
+			<input type="text" name="L" value="{{sub_l}}"/>			
+			{% if stretch_answerL == "correct" %}
+					{{stretch_answerL}}
+				{% else %}
+					{{stretch_answerL}}
+				{% endif %}	
+			<br/>
+			Ответ для S: <!--${stretch_Q}--><br/>
+			<input type="text" name="S" value="{{sub_s}}"/>			
+			{% if stretch_answerS == "correct" %}
+					{{stretch_answerS}}
+				{% else %}
+					{{stretch_answerS}}
+				{% endif %}	
+			<br/>			
+			<input type="submit" name="answer" value="Submit"/>
+		</form>
+	{% endif %}
+</div>
+</body>
+</html>

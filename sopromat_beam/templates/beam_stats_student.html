@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.column {
+		width: 300px;
+		background:#ccc;
+		}
+	.links  {
+                width:100px;
+                background:#ccc;
+                float:right;
+                position:relative;
+                }
+
+	</style>
+	<title>Статистика</title>
+</head>
+
+<body>
+<div class="links">
+	<a href="{% url 'sopromat_beam:tester' %}">Пойти решать</a>	<br/><br/>
+   	<a href="{% url 'sopromat_beam:tasks' %}">Задачи</a><br/>
+	<br/>
+	<a href="{% url 'sopromat_beam:stats_teacher' %}">Статистика для учителя</a><br/>
+	<br/>
+	<a href="{% url 'sopromat:index' %}">На главную</a>
+	<br/>
+<br/>
+</div>
+	Пользователь: {{user}}
+<br/><br/>
+<table cellspacing="0" cellpadding="5">
+	<tr>
+	<td valign="top">
+		Попытки решения задач
+			<table id="" cellspacing="5">
+				<thead>
+					<tr><th align="left" width="20">Номер</th><th align="left" width="200">Время</th><th align="left" width="70">Ответ M</th><th align="left" width="70">Ответ Q</th></tr>
+				</thead>
+				<tbody>
+					{% for i in beam_attempts %}
+						<tr><td align="left">{{i.id}}</td><td align="left">{{i.date}}</td><td align="left">{{i.answerM}}</td><td align="left">{{i.answerQ}}</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	</td>
+	<td valign="top">
+		Назначенные задачи
+                        <table id="" cellspacing="5">
+                                <thead>
+                                    <tr><th align="left" width="20">Номер</th><th align="left" width="200">Дата</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in beam_usertasks %}
+										<tr><td align="left">{{i.id}}</td><td align="left">{{i.date}}</td></tr>
+									{% endfor %}
+                                </tbody>
+                        </table>
+	</td>
+	</tr>
+</table>
+
+</body>
+</html>

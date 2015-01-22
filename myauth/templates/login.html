@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+	.tasktext { 
+		width: 300px; 
+		background:#ccc;	
+		}	  
+	.loginform {
+		width: 400px;
+		text-align: left;
+		background:#ccc;
+		}
+	</style> 
+	<title>Registration</title>
+</head>
+
+<body>
+<div class="loginform">
+	<form method="post" action="{% url 'myauth:login'	%}">
+		{% csrf_token %}
+		<table>
+		
+		<tr>
+			<td>Username:</td>
+			<td><input type="text" name="username" value=""/></td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td><input type="text" name="password" value=""/></td>
+		</tr>
+		
+		
+		
+		</table>
+
+		<input type="submit" value="Login" />
+		<input type="hidden" name="next" value="" />
+</form>
+	
+</div>
+</body>
+</html>
