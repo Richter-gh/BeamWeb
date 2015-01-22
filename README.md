@@ -1,5 +1,6 @@
-Strength of materials automated testing system
-http://ivzaitsev.pythonanywhere.com/
+#Strength of materials automated testing system
+
+Available for testing here: http://ivzaitsev.pythonanywhere.com/
 
 Currently has 4 types of tasks: bending of hyperstatic beams, stretching of isostatic rods, twisting of isostatic rods, calculating moments of inertia for various figures.
 
